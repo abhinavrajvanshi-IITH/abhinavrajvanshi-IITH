@@ -1,0 +1,42 @@
+https://www.geeksforgeeks.org/batch/dsa-4/track/DSASP-Graph/problem/steps-by-knight5927
+
+class Solution 
+{
+    public:
+    //Function to find out minimum steps Knight needs to reach target position.
+	int minStepToReachTarget(vector<int>&KnightPos,vector<int>&TargetPos,int N)
+	{
+	    // Code her
+	    vector<vector<int>> dist(N,vector<int>(N,INT_MAX));
+	    queue<pair<int,int>> q;
+	    q.push({KnightPos[0]-1,KnightPos[1]-1});
+	    
+	    dist[KnightPos[0]-1][KnightPos[1]-1] = 0;
+	    
+	    vector<int> dir = {-1,2,1,2,-1,-2,1,-2,-1};
+	    
+	   while(!q.empty()){
+	       
+	       pair<int,int> cell = q.front();
+	       q.pop();
+	       int x = cell.first;
+	       int y = cell.second;
+	       
+	      for(int i = 0 ; i < 8 ; i++){
+	          
+	          int nx = x + dir[i];
+	          int ny = y + dir[i+1];
+	          
+	          if( nx < N && ny < N && nx >= 0 && ny >=0 && dist[nx][ny] > (dist[x][y] +1) ){
+	              dist[nx][ny] = dist[x][y]+1;
+	              q.push({nx,ny});
+	          }
+	      }
+	   }
+	    
+	    
+	    int val = dist[TargetPos[0]-1][TargetPos[1]-1];
+	    return val;
+	    
+	}
+};
